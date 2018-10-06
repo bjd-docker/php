@@ -1,4 +1,4 @@
-FROM composer:1.6 AS composer
+FROM composer:1.7 AS composer
 FROM php:7.2-fpm
 
 RUN apt-get update \
@@ -7,6 +7,7 @@ RUN apt-get update \
         libicu-dev \
         libz-dev \
         unzip \
+        wget \
         zip
 
 RUN pecl install xdebug
@@ -17,6 +18,10 @@ RUN docker-php-ext-configure intl \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install zip \
     && docker-php-ext-enable xdebug
+
+RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb \
+    && apt-get install -y ./wkhtmltox_0.12.5-1.stretch_amd64.deb \
+    && rm -f ./wkhtmltox_0.12.5-1.stretch_amd64.deb
 
 RUN useradd dev
 
