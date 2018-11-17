@@ -26,7 +26,6 @@ RUN wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.stretc
 RUN useradd dev
 
 COPY .bashrc /home/dev/.bashrc
-COPY entrypoint.sh /usr/local/bin/php-entrypoint
 COPY php.ini /usr/local/etc/php/php.ini
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -37,5 +36,3 @@ USER dev:dev
 WORKDIR /app
 
 CMD ["php-fpm"]
-
-ENTRYPOINT ["php-entrypoint"]
