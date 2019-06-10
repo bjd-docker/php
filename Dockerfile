@@ -1,11 +1,11 @@
 FROM composer:1.8 AS composer
-FROM php:7.2-fpm
+FROM php:7.3-fpm
 
 RUN apt-get update \
     && apt-get install -y \
         gnupg2 \
         libicu-dev \
-        libz-dev \
+        libzip-dev \
         unzip \
         wget \
         zip
@@ -13,6 +13,7 @@ RUN apt-get update \
 RUN pecl install xdebug
 
 RUN docker-php-ext-configure intl \
+    && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install intl \
     && docker-php-ext-install opcache \
     && docker-php-ext-install pdo_mysql \
