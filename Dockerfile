@@ -1,4 +1,4 @@
-FROM composer:1.7 AS composer
+FROM composer:1.8 AS composer
 FROM php:7.2-fpm
 
 RUN apt-get update \
